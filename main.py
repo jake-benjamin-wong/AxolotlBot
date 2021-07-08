@@ -42,8 +42,8 @@ async def clear(ctx, amount=10):
 
 @bot.listen()
 async def on_message(message):
-    if "die" in message.content.lower():
-        await message.channel.send("your ded lmao")
-        await bot.process_commands(message)
+  egg = "\N{EGG}"
+  await message.add_reaction(egg)
+  print(egg)
 
 bot.run(TOKEN)
