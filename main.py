@@ -1,9 +1,12 @@
 import os
 import discord
-from dotenv import load_dotenv
-from urllib import parse, request
 import re
 import datetime
+
+from discord import utils
+from dotenv import load_dotenv
+from urllib import parse, request
+
 
 from discord.ext import commands
 
@@ -20,6 +23,11 @@ bot = commands.Bot(command_prefix='!', description="This is a test bot")
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
     await bot.change_presence(activity=discord.Game("Use !help"))
+    servers = bot.guilds
+    for server in bot.guilds:
+        channel = server.text_channels
+        await channel[0].send("wow i exist")
+
 
 # commands here
 @bot.command(name='ping')
@@ -42,8 +50,8 @@ async def clear(ctx, amount=10):
 
 @bot.listen()
 async def on_message(message):
-    if "die" in message.content.lower():
-        await message.channel.send("your ded lmao")
-        await bot.process_commands(message)
+    if "egg" in message.content.lower():
+        await message.add_reaction("\N{EGG}")
+        await message.send("egg")
 
 bot.run(TOKEN)
