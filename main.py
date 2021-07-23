@@ -1,13 +1,16 @@
 import os
+import sys
+
 import discord
 import re
 import datetime
+import random
 
 from discord import utils
 from dotenv import load_dotenv
 from urllib import parse, request
-
-
+import asyncio
+import csv
 from discord.ext import commands
 
 # load token (dont share pls)
@@ -26,7 +29,31 @@ async def on_ready():
     servers = bot.guilds
     for server in bot.guilds:
         channel = server.text_channels
-        await channel[0].send("wow i exist")
+        #await channel[0].send("wow i exist")
+    nouns = ["tension","connection","resolution","performance","potato","description"]
+    nouns_length = len(nouns)
+    adjectives = ["exultant","obedient","inexpensive","feigned","supreme"]
+    adjectives_length = len(adjectives)
+    while True:
+        try:
+            time = random.randint(10,20)
+            print("waiting " + str(time) + " seconds")
+            await asyncio.sleep(time)
+            print("Creating Channel Name...")
+            channel_name = adjectives[random.randint(0, len(adjectives))] + " " + nouns[random.randint(0, len(nouns) - 1)]
+            print("New name = " + channel_name)
+            for server in bot.guilds:
+                print("Old name: " + str(server.text_channels[0]))
+                channel = server.text_channels
+                await channel[0].edit(name = channel_name)
+                print("changed channel name to " + str(server.text_channels[0]))
+        except:
+            print("oh no eror")
+            e = sys.exc_info()[0]
+            print("Error: "+str(e))
+        finally:
+            print("ah yes")
+            print()
 
 
 # commands here
@@ -52,6 +79,8 @@ async def clear(ctx, amount=10):
 async def on_message(message):
     if "egg" in message.content.lower():
         await message.add_reaction("\N{EGG}")
-        await message.send("egg")
+        print("Egg in " + message.content)
+        # await message.channel.send("egg")
+        # sorry
 
 bot.run(TOKEN)

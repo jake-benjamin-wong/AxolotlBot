@@ -118,7 +118,6 @@ dmypy.json
 
 #environment vars
 .env
-unknown-0.0-py39_0.tar.bz2
 
 #replit
 .replit
